@@ -1,6 +1,6 @@
 # note_taking_app
 
-A new Flutter project.
+A Simple Note Taking Application Using Flutter.
 
 ## Getting Started
 
