@@ -64,6 +64,9 @@ class _NoteEditorState extends ConsumerState<NoteEditor> {
           IconButton(
             icon: const Icon(Icons.create_new_folder_rounded),
             onPressed: _showCategoryModal,
+          ), IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: _confirmDelete,
           ),
         ],
       ),
@@ -128,6 +131,33 @@ class _NoteEditorState extends ConsumerState<NoteEditor> {
       ref.read(notesProvider.notifier).updateNote(updatedNote);
     }
     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+  }
+
+  void _confirmDelete() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Delete Note'),
+          content: const Text('Are you sure you want to delete this note?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                ref.read(notesProvider.notifier).deleteNote(widget.note.id);
+
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _showCategoryModal() async {
